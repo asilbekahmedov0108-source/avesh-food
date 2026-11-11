@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="uz" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Avesh Food — O'zbekistondagi eng tezkor va mazali fast-food yetkazib berish xizmati. Hot-dog, burger, lavash, shaurma, pitsa va KFC." />
+  <meta name="keywords" content="Avesh Food, fast food, hot dog, burger, lavash, shaurma, pizza, KFC, yetkazib berish" />
+  <title>Avesh Food — Eng mazali fast-food</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23FF7A18'/%3E%3Cstop offset='100%25' stop-color='%23E63946'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='60' cy='60' r='58' fill='url(%23bg)'/%3E%3Ctext x='60' y='75' font-family='Arial' font-size='52' font-weight='900' fill='white' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://z-cdn.chatglm.cn" />
+</head>
+<body>
+  <!-- ============ HEADER ============ -->
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <button class="brand" id="navMenu" aria-label="Avesh Food">
+        <span class="brand-logo" id="brandLogo"></span>
+        <span class="brand-text">
+          <span class="brand-name">Avesh Food</span>
+          <span class="brand-tag"><span class="flame-ico">🔥</span> Fast Food Delivery</span>
+        </span>
+      </button>
+
+      <nav class="nav-desktop" aria-label="Asosiy navigatsiya">
+        <button class="nav-link" data-nav="menu" data-i18n="nav_menu">Bosh menyu</button>
+        <button class="nav-link" data-nav="active" data-i18n="nav_active">Amaldagi</button>
+        <button class="nav-link" data-nav="history" data-i18n="nav_history">Buyurtmalar</button>
+        <button class="nav-link" data-nav="profile" data-i18n="nav_profile">Profil</button>
+        <button class="nav-link" data-nav="settings" data-i18n="nav_settings">Sozlamalar</button>
+      </nav>
+
+      <button class="cart-btn" id="cartBtn" aria-label="Savatcha">
+        <span class="cart-ico">🛒</span>
+        <span class="cart-label" data-i18n="cart">Savatcha</span>
+        <span class="cart-badge" id="cartBadge" hidden>0</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-glow"></div>
+      <div class="container hero-content">
+        <span class="hero-badge"><span>🔥</span> <span data-i18n="hero_popular">Mashhur taomlar</span></span>
+        <h1 class="hero-title">
+          <span class="gradient-text">Avesh Food</span><br />
+          <span data-i18n="hero_welcome">ga xush kelibsiz!</span>
+        </h1>
+        <p class="hero-sub" data-i18n="tagline">Eng mazali va qaynoq fast-food taomlari sizni kutmoqda</p>
+        <button class="hero-cta" id="heroCta">
+          <span>🛵</span> <span data-i18n="hero_btn">Menyuga o'tish</span>
+        </button>
+        <div class="hero-stats">
+          <div class="stat">
+            <div class="stat-ico">⏱️</div>
+            <div class="stat-title" data-i18n="delivery_time">30 daqiqa ichida</div>
+            <div class="stat-sub" data-i18n="fast_delivery">Tez yetkazib berish</div>
+          </div>
+          <div class="stat">
+            <div class="stat-ico">🔥</div>
+            <div class="stat-title" data-i18n="hot_food">Har doim qaynoq</div>
+            <div class="stat-sub">100% fresh</div>
+          </div>
+          <div class="stat">
+            <div class="stat-ico">⭐</div>
+            <div class="stat-title">4.9 / 5</div>
+            <div class="stat-sub">2.4k+ reviews</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MENU ============ -->
+    <section class="section" id="menu">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title gradient-text" data-i18n="nav_menu">Bosh menyu</h2>
+          <p class="section-desc" data-i18n="menu_desc">Hot-dog, burger, lavash, shaurma, KFC va pitsa — barchasi buyurtma berishingiz bilan tayyor</p>
+        </div>
+        <div id="menuContainer"></div>
+      </div>
+    </section>
+
+    <!-- ============ ORDERS ============ -->
+    <section class="section" id="ordersSection">
+      <div class="container">
+        <!-- Active orders -->
+        <div id="active" class="orders-block scroll-mt">
+          <div class="block-head">
+            <span class="block-ico block-ico-primary">⏰</span>
+            <div>
+              <h2 class="block-title" data-i18n="active_orders">Amaldagi buyurtmalar</h2>
+              <p class="block-sub" data-i18n="delivery_time">30 daqiqa ichida</p>
+            </div>
+            <span class="block-count" id="activeCount">0</span>
+          </div>
+          <div id="activeList"></div>
+        </div>
+
+        <!-- History -->
+        <div id="history" class="orders-block scroll-mt">
+          <div class="block-head">
+            <span class="block-ico block-ico-green">✅</span>
+            <div>
+              <h2 class="block-title" data-i18n="order_history">Buyurtmalar tarixi</h2>
+              <p class="block-sub" id="historyCount">0 ta</p>
+            </div>
+          </div>
+          <div id="historyList"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROFILE + SETTINGS ============ -->
+    <section class="section" id="profileSettings">
+      <div class="container">
+        <div class="grid-2">
+          <!-- Profile -->
+          <div id="profile" class="scroll-mt card">
+            <div class="card-head">
+              <h2 class="card-title">👤 <span data-i18n="profile_title">Mijoz Profili</span></h2>
+              <p class="card-desc" data-i18n="fill_profile">Iltimos, profil ma'lumotlarini to'ldiring</p>
+            </div>
+            <form id="profileForm" class="card-body">
+              <div class="field">
+                <label for="pName" data-i18n="full_name">Ism familiya</label>
+                <div class="input-wrap">
+                  <span class="input-ico">👤</span>
+                  <input type="text" id="pName" placeholder="Aliyev Vali" required />
+                </div>
+              </div>
+              <div class="field">
+                <label for="pPhone" data-i18n="phone">Telefon raqami</label>
+                <div class="input-wrap">
+                  <span class="input-ico">📞</span>
+                  <input type="tel" id="pPhone" placeholder="+998 90 123 45 67" required />
+                </div>
+              </div>
+              <div class="field">
+                <label for="pAddress" data-i18n="address">Manzil</label>
+                <div class="input-wrap">
+                  <span class="input-ico">📍</span>
+                  <input type="text" id="pAddress" placeholder="Toshkent, Chilonzor, ko'cha 1" required />
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary">
+                <span>💾</span> <span data-i18n="save_profile">Saqlash</span>
+              </button>
+            </form>
+          </div>
+
+          <!-- Settings -->
+          <div id="settings" class="scroll-mt card">
+            <div class="card-head">
+              <h2 class="card-title">⚙️ <span data-i18n="settings_title">Sozlamalar</span></h2>
+              <p class="card-desc">Theme, language & data</p>
+            </div>
+            <div class="card-body settings-body">
+              <!-- Dark mode -->
+              <div class="setting-row">
+                <div class="setting-info">
+                  <span class="setting-ico setting-ico-primary">🌙</span>
+                  <div>
+                    <div class="setting-title" data-i18n="dark_mode">Tungi rejim</div>
+                    <div class="setting-sub">Light / Dark</div>
+                  </div>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" id="darkToggle" />
+                  <span class="switch-slider"></span>
+                </label>
+              </div>
+
+              <!-- Language -->
+              <div class="setting-block">
+                <div class="setting-info">
+                  <span class="setting-ico setting-ico-primary">🌐</span>
+                  <div>
+                    <div class="setting-title" data-i18n="language">Til</div>
+                    <div class="setting-sub">UZ / RU / EN</div>
+                  </div>
+                </div>
+                <div class="lang-row">
+                  <button class="lang-btn" data-lang="uz">🇺🇿 O'zbek</button>
+                  <button class="lang-btn" data-lang="ru">🇷🇺 Русский</button>
+                  <button class="lang-btn" data-lang="en">🇬🇧 English</button>
+                </div>
+              </div>
+
+              <!-- Clear cache -->
+              <div class="setting-row">
+                <div class="setting-info">
+                  <span class="setting-ico setting-ico-red">🗑️</span>
+                  <div>
+                    <div class="setting-title" data-i18n="clear_cache">Keshni tozalash</div>
+                    <div class="setting-sub">Cart, orders, profile</div>
+                  </div>
+                </div>
+                <button class="btn btn-outline-red" id="clearCacheBtn" data-i18n="clear_cache">Keshni tozalash</button>
+              </div>
+
+              <div class="setting-note">
+                <span>✅</span>
+                <span data-i18n="cache_note">Ma'lumotlar faqat shu brauzerda saqlanadi (localStorage).</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <div class="footer-brand">
+          <span class="brand-logo small" id="footerLogo"></span>
+          <span class="brand-name gradient-text">Avesh Food</span>
+        </div>
+        <p class="footer-text" data-i18n="tagline">Eng mazali va qaynoq fast-food taomlari sizni kutmoqda</p>
+        <p class="footer-meta"><span>🔥</span> <span data-i18n="free_delivery">Bepul yetkazib berish</span> • <span data-i18n="delivery_time">30 daqiqa ichida</span></p>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-head">Menu</h4>
+        <ul class="footer-links">
+          <li><button data-nav="menu" data-i18n="nav_menu">Bosh menyu</button></li>
+          <li><button data-nav="active" data-i18n="nav_active">Amaldagi</button></li>
+          <li><button data-nav="history" data-i18n="nav_history">Buyurtmalar</button></li>
+          <li><button data-nav="profile" data-i18n="nav_profile">Profil</button></li>
+          <li><button data-nav="settings" data-i18n="nav_settings">Sozlamalar</button></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-head" data-i18n="contact_us">Biz bilan bog'lanish</h4>
+        <ul class="footer-contact">
+          <li><span>📞</span> <a href="tel:+998901234567">+998 90 123 45 67</a></li>
+          <li><span>📍</span> Toshkent, Chilonzor</li>
+          <li><span>🕒</span> <span data-i18n="working_hours">Ish vaqti: 10:00 - 23:00</span></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-head">Social</h4>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram">📸</a>
+          <a href="#" aria-label="Telegram">✈️</a>
+          <a href="tel:+998901234567" aria-label="Phone">📞</a>
+        </div>
+        <p class="footer-meta"><span data-i18n="delivery_time">30 daqiqa ichida</span> 🚀</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <span>© <span id="year"></span> Avesh Food. <span data-i18n="footer_rights">Barcha huquqlar himoyalangan</span>.</span>
+        <span class="footer-made">Made with 🔥 in Uzbekistan</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile bottom nav -->
+  <nav class="nav-mobile" aria-label="Mobil navigatsiya">
+    <button data-nav="menu"><span class="mn-ico">☰</span><span class="mn-label" data-i18n="nav_menu">Menyu</span></button>
+    <button data-nav="active"><span class="mn-ico">⏰</span><span class="mn-label" data-i18n="nav_active">Amaldagi</span></button>
+    <button data-nav="history"><span class="mn-ico">📦</span><span class="mn-label" data-i18n="nav_history">Buyurtma</span></button>
+    <button data-nav="profile"><span class="mn-ico">👤</span><span class="mn-label" data-i18n="nav_profile">Profil</span></button>
+    <button data-nav="settings"><span class="mn-ico">⚙️</span><span class="mn-label" data-i18n="nav_settings">Sozlama</span></button>
+  </nav>
+
+  <!-- ============ CART DRAWER ============ -->
+  <div class="drawer-overlay" id="cartOverlay" hidden></div>
+  <aside class="drawer" id="cartDrawer" aria-label="Savatcha" aria-hidden="true">
+    <div class="drawer-head">
+      <div class="drawer-head-left">
+        <span class="drawer-ico">🛍️</span>
+        <h3 class="drawer-title" data-i18n="cart">Savatcha</h3>
+        <span class="drawer-count" id="drawerCount">0</span>
+      </div>
+      <button class="drawer-clear" id="clearCartBtn">
+        <span>🗑️</span> <span data-i18n="clear_cart">Tozalash</span>
+      </button>
+    </div>
+    <div class="drawer-body" id="cartBody"></div>
+    <div class="drawer-foot" id="cartFoot" hidden>
+      <div class="drawer-total">
+        <span data-i18n="total">Jami</span>
+        <span class="drawer-total-amount" id="cartTotal">0 so'm</span>
+      </div>
+      <button class="btn btn-primary btn-block" id="checkoutBtn">
+        <span data-i18n="checkout">Buyurtma berish</span> <span>→</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Toast container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
